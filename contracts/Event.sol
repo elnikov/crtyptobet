@@ -3,19 +3,18 @@
 pragma solidity ^0.8.0;
 
 contract Event {
+    address public owner; 
 
-    address owner; 
+    string public kind;
+    string public id;
+    uint public result;
+    bool public is_end;
+    uint public total_amount;
+    uint public total_bids;
+    uint public winners_count;
+    uint public losers_count;
+    uint public fee_amount;
 
-    struct Event {
-        string kind;
-        uint result;
-        bool is_end;
-        uint total_amount;
-        uint total_bids;
-        uint winners_count;
-        uint losers_count;
-        uint fee_amount;
-    }
     
     struct Bid {
         string event_id;
@@ -23,30 +22,16 @@ contract Event {
         uint result;
     }
 
-    mapping(address => Bid) public bids; 
-    mapping(string => Event) public events; 
+    // mapping(address => Bid) public bids; 
+    // mapping(string => Event) public events; 
 
-    constructor() {
-        owner = msg.sender;
-        
-        events["1"] = Event({
-                                kind: "w1",
-                                result: 1,
-                                is_end: false,
-                                total_amount: 0,
-                                total_bids: 0,
-                                winners_count: 0,
-                                losers_count: 0,
-                                fee_amount: 0
-                            });
+    constructor(string memory _id, string memory _kind, address payable _owner) {
+        owner = _owner;
+        id = _id; 
+        kind = _kind; 
 
-        bids[owner] = Bid({
-            event_id: "1",
-            amount: 100,
-            result: 1
-        });
+        is_end = false;
     }
-
 
 } 
 
