@@ -23,6 +23,7 @@ describe("Event", function () {
       expect(await eventContract.id()).to.equal("123");
       expect(await eventContract.kind()).to.equal("w1");
       expect(await eventContract.owner()).to.equal(owner.address);
+      expect(await eventContract.state()).to.equal(0);
     });
   });
 });

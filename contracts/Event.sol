@@ -5,6 +5,10 @@ pragma solidity ^0.8.0;
 contract Event {
     address public owner; 
 
+    enum State { Created, Started, Ended }
+    // The state variable has a default value of the first member, `State.created`
+    State public state;
+
     string public kind;
     string public id;
     uint public result;
@@ -22,6 +26,15 @@ contract Event {
         uint result;
     }
 
+    error InvalidState();
+
+    modifier inState(State state_) {
+        if (state != state_)
+            revert InvalidState();
+        _;
+    }
+
+
     // mapping(address => Bid) public bids; 
     // mapping(string => Event) public events; 
 
@@ -29,6 +42,7 @@ contract Event {
         owner = _owner;
         id = _id; 
         kind = _kind; 
+        state = State.Created;
 
         is_end = false;
     }
